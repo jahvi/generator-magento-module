@@ -33,15 +33,32 @@ module.exports = yeoman.generators.Base.extend({
         message: 'What is the module codepool?',
         choices: ['local', 'community'],
         default: 'local'
+      },
+      {
+        type: 'checkbox',
+        name: 'components',
+        message: 'What components do you need?',
+        choices: [
+          {
+            name: 'Block',
+            value: 'block'
+          }
+        ]
       }
     ];
 
-    this.prompt(prompts, function (props) {
-      this.props = props;
+    this.prompt(prompts, function (answers) {
+      var components = answers.components;
 
-      this.codePool = props.codePool;
-      this.namespace = _s.classify(props.namespace);
-      this.moduleName = _s.classify(props.moduleName);
+      function hasComponent(component) {
+        return components && components.indexOf(component) !== -1;
+      }
+
+      this.codePool = answers.codePool;
+      this.namespace = _s.classify(answers.namespace);
+      this.moduleName = _s.classify(answers.moduleName);
+
+      this.includeBlock = hasComponent('block');
 
       this.modulePath = 'app/code/' + this.codePool + '/' + this.namespace + '/' + this.moduleName;
 
@@ -50,9 +67,22 @@ module.exports = yeoman.generators.Base.extend({
   },
 
   writing: {
-    folders: function () {
+    files: function () {
       mkdirp(this.modulePath);
       mkdirp(this.modulePath + '/etc');
+
+      if (this.includeBlock) {
+        mkdirp(this.modulePath + '/Block');
+
+        this.fs.copyTpl(
+          this.templatePath('block.php'),
+          this.destinationPath(this.modulePath + '/Block/MyBlock.php'),
+          {
+            namespace: this.namespace,
+            moduleName: this.namespace + '_' + this.moduleName
+          }
+        );
+      }
     },
 
     config: function () {
