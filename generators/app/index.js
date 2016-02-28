@@ -49,9 +49,23 @@ module.exports = yeoman.generators.Base.extend({
 
   writing: {
     folders: function () {
+      this.modulePath = 'app/code/' + this.codePool + '/' + this.namespace + '/' + this.moduleName;
+
       mkdirp('app/code/' + this.codePool);
       mkdirp('app/code/' + this.codePool + '/' + this.namespace);
       mkdirp('app/code/' + this.codePool + '/' + this.namespace + '/' + this.moduleName);
+
+      mkdirp('app/code/' + this.codePool + '/' + this.namespace + '/' + this.moduleName + '/etc');
+    },
+
+    config: function () {
+      this.fs.copyTpl(
+        this.templatePath('config.xml'),
+        this.destinationPath(this.modulePath + '/etc/config.xml'),
+        {
+          moduleId: _.toLower(this.namespace + '_' + this.moduleName)
+        }
+      );
     }
   }
 });
