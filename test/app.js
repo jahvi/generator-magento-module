@@ -68,7 +68,8 @@ describe('generator-magento-module:app', function () {
 
     it('creates block component files', function () {
       assert.file([
-        'app/code/local/TestNamespace/TestModule/Block'
+        'app/code/local/TestNamespace/TestModule/Block',
+        'app/code/local/TestNamespace/TestModule/Block/MyBlock.php'
       ]);
     });
 
