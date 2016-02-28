@@ -6,26 +6,32 @@
         </<%= moduleId %>>
     </modules>
     <global>
-        <% if (includeBlock) { %><blocks>
+        <%_ if (includeBlock) { _%>
+        <blocks>
             <<%= moduleId %>>
                 <class><%= moduleName %>_Block</class>
             </<%= moduleId %>>
-        </blocks><% } %>
-        <% if (includeHelper) { %><helpers>
+        </blocks>
+        <%_ } _%>
+        <%_ if (includeHelper) { _%>
+        <helpers>
             <<%= moduleId %>>
                 <class><%= moduleName %>_Helper</class>
             </<%= moduleId %>>
-        </helpers><% } %>
+        </helpers>
+        <%_ } _%>
     </global>
     <frontend>
-        <% if (includeController) { %><routers>
+        <%_ if (includeController) { _%>
+        <routers>
             <<%= moduleId %>>
                 <use>standard</use>
                 <args>
                     <module><%= moduleName %></module>
-                    <frontName>myController</frontName>
+                    <frontName><%= moduleFrontName %></frontName>
                 </args>
             </<%= moduleId %>>
-        </routers><% } %>
+        </routers>
+        <%_ } _%>
     </frontend>
 </config>

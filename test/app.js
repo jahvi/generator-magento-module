@@ -100,7 +100,7 @@ describe('generator-magento-module:app', function () {
     it('creates controller config handle', function () {
       assert.fileContent(
         'app/code/local/TestNamespace/TestModule/etc/config.xml',
-        /<routers>\s*<testnamespace_testmodule>\s*<use>standard<\/use>\s*<args>\s*<module>TestNamespace_TestModule<\/module>\s*<frontName>myController<\/frontName>\s*<\/args>\s*<\/testnamespace_testmodule>\s*<\/routers>/
+        /<routers>\s*<testnamespace_testmodule>\s*<use>standard<\/use>\s*<args>\s*<module>TestNamespace_TestModule<\/module>\s*<frontName>testmodule<\/frontName>\s*<\/args>\s*<\/testnamespace_testmodule>\s*<\/routers>/
       );
     });
 
@@ -158,7 +158,7 @@ describe('generator-magento-module:app', function () {
     it('does not create controller config handle', function () {
       assert.noFileContent(
         'app/code/local/TestNamespace/TestModule/etc/config.xml',
-        /<routers>\s*<testnamespace_testmodule>\s*<use>standard<\/use>\s*<args>\s*<module>TestNamespace_TestModule<\/module>\s*<frontName>myController<\/frontName>\s*<\/args>\s*<\/testnamespace_testmodule>\s*<\/routers>/
+        /<routers>\s*<testnamespace_testmodule>\s*<use>standard<\/use>\s*<args>\s*<module>TestNamespace_TestModule<\/module>\s*<frontName>testmodule<\/frontName>\s*<\/args>\s*<\/testnamespace_testmodule>\s*<\/routers>/
       );
     });
 
