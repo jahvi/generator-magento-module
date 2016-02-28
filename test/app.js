@@ -78,6 +78,13 @@ describe('generator-magento-module:app', function () {
       );
     });
 
+    it('creates block config handle', function () {
+      assert.fileContent(
+        'app/code/local/TestNamespace/TestModule/etc/config.xml',
+        /<blocks>\s*<testnamespace_testmodule>\s*<class>TestNamespace_TestModule_Block<\/class>\s*<\/testnamespace_testmodule>\s*<\/blocks>/
+      );
+    });
+
     it('creates controller component files', function () {
       assert.file([
         'app/code/local/TestNamespace/TestModule/controllers',

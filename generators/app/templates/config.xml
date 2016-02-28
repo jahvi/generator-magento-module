@@ -5,6 +5,13 @@
             <version>1.0.0</version>
         </<%= moduleId %>>
     </modules>
+    <global>
+        <% if (includeBlock) { %><blocks>
+            <<%= moduleId %>>
+                <class><%= moduleName %>_Block</class>
+            </<%= moduleId %>>
+        </blocks><% } %>
+    </global>
     <frontend>
         <% if (includeController) { %><routers>
             <<%= moduleId %>>

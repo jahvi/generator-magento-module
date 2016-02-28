@@ -110,6 +110,7 @@ module.exports = yeoman.generators.Base.extend({
         {
           moduleId: this.namespace.toLowerCase() + '_' + this.moduleName.toLowerCase(),
           moduleName: this.namespace + '_' + this.moduleName,
+          includeBlock: this.includeBlock,
           includeController: this.includeController
         }
       );
