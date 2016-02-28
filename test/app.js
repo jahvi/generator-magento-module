@@ -61,7 +61,7 @@ describe('generator-magento-module:app', function () {
           namespace: 'Test Namespace',
           moduleName: 'Test Module',
           codePool: 'local',
-          components: ['block', 'controller']
+          components: ['block', 'controller', 'helper']
         })
         .on('end', done);
     });
@@ -103,6 +103,25 @@ describe('generator-magento-module:app', function () {
         /<routers>\s*<testnamespace_testmodule>\s*<use>standard<\/use>\s*<args>\s*<module>TestNamespace_TestModule<\/module>\s*<frontName>myController<\/frontName>\s*<\/args>\s*<\/testnamespace_testmodule>\s*<\/routers>/
       );
     });
+
+    it('creates helper component files', function () {
+      assert.file([
+        'app/code/local/TestNamespace/TestModule/Helper',
+        'app/code/local/TestNamespace/TestModule/Helper/Data.php'
+      ]);
+
+      assert.fileContent(
+        'app/code/local/TestNamespace/TestModule/Helper/Data.php',
+        'TestNamespace_TestModule_Helper_Data'
+      );
+    });
+
+    it('creates helper config handle', function () {
+      assert.fileContent(
+        'app/code/local/TestNamespace/TestModule/etc/config.xml',
+        /<helpers>\s*<testnamespace_testmodule>\s*<class>TestNamespace_TestModule_Helper<\/class>\s*<\/testnamespace_testmodule>\s*<\/helpers>/
+      );
+    });
   });
 
   describe('generate module without components', function () {
@@ -123,6 +142,13 @@ describe('generator-magento-module:app', function () {
       ]);
     });
 
+    it('does not create block config handle', function () {
+      assert.noFileContent(
+        'app/code/local/TestNamespace/TestModule/etc/config.xml',
+        /<blocks>\s*<testnamespace_testmodule>\s*<class>TestNamespace_TestModule_Block<\/class>\s*<\/testnamespace_testmodule>\s*<\/blocks>/
+      );
+    });
+
     it('does not create controller component files', function () {
       assert.noFile([
         'app/code/local/TestNamespace/TestModule/controllers'
@@ -133,6 +159,19 @@ describe('generator-magento-module:app', function () {
       assert.noFileContent(
         'app/code/local/TestNamespace/TestModule/etc/config.xml',
         /<routers>\s*<testnamespace_testmodule>\s*<use>standard<\/use>\s*<args>\s*<module>TestNamespace_TestModule<\/module>\s*<frontName>myController<\/frontName>\s*<\/args>\s*<\/testnamespace_testmodule>\s*<\/routers>/
+      );
+    });
+
+    it('does not create helper component files', function () {
+      assert.noFile([
+        'app/code/local/TestNamespace/TestModule/Helper'
+      ]);
+    });
+
+    it('does not create helper config handle', function () {
+      assert.noFileContent(
+        'app/code/local/TestNamespace/TestModule/etc/config.xml',
+        /<helpers>\s*<testnamespace_testmodule>\s*<class>TestNamespace_TestModule_Helper<\/class>\s*<\/testnamespace_testmodule>\s*<\/helpers>/
       );
     });
   });

@@ -46,6 +46,10 @@ module.exports = yeoman.generators.Base.extend({
           {
             name: 'Controller',
             value: 'controller'
+          },
+          {
+            name: 'Helper',
+            value: 'helper'
           }
         ]
       }
@@ -64,6 +68,7 @@ module.exports = yeoman.generators.Base.extend({
 
       this.includeBlock = hasComponent('block');
       this.includeController = hasComponent('controller');
+      this.includeHelper = hasComponent('helper');
 
       this.moduleClassName = this.namespace + '_' + this.moduleName;
       this.modulePath = 'app/code/' + this.codePool + '/' + this.namespace + '/' + this.moduleName;
@@ -102,6 +107,19 @@ module.exports = yeoman.generators.Base.extend({
           }
         );
       }
+
+      if (this.includeHelper) {
+        mkdirp(this.modulePath + '/Helper');
+
+        this.fs.copyTpl(
+          this.templatePath('helper.php'),
+          this.destinationPath(this.modulePath + '/Helper/Data.php'),
+          {
+            namespace: this.namespace,
+            moduleName: this.moduleClassName
+          }
+        );
+      }
     },
 
     config: function () {
@@ -112,7 +130,8 @@ module.exports = yeoman.generators.Base.extend({
           moduleId: this.namespace.toLowerCase() + '_' + this.moduleName.toLowerCase(),
           moduleName: this.moduleClassName,
           includeBlock: this.includeBlock,
-          includeController: this.includeController
+          includeController: this.includeController,
+          includeHelper: this.includeHelper
         }
       );
     },

@@ -11,6 +11,11 @@
                 <class><%= moduleName %>_Block</class>
             </<%= moduleId %>>
         </blocks><% } %>
+        <% if (includeHelper) { %><helpers>
+            <<%= moduleId %>>
+                <class><%= moduleName %>_Helper</class>
+            </<%= moduleId %>>
+        </helpers><% } %>
     </global>
     <frontend>
         <% if (includeController) { %><routers>
