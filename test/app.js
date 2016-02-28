@@ -61,7 +61,7 @@ describe('generator-magento-module:app', function () {
           namespace: 'Test Namespace',
           moduleName: 'Test Module',
           codePool: 'local',
-          components: ['block', 'controller', 'helper', 'setup']
+          components: ['block', 'controller', 'helper', 'observer', 'setup']
         })
         .on('end', done);
     });
@@ -120,6 +120,24 @@ describe('generator-magento-module:app', function () {
       assert.fileContent(
         'app/code/local/TestNamespace/TestModule/etc/config.xml',
         /<helpers>\s*<testnamespace_testmodule>\s*<class>TestNamespace_TestModule_Helper<\/class>\s*<\/testnamespace_testmodule>\s*<\/helpers>/
+      );
+    });
+
+    it('creates observer component files', function () {
+      assert.file([
+        'app/code/local/TestNamespace/TestModule/Model/Observer.php'
+      ]);
+
+      assert.fileContent(
+        'app/code/local/TestNamespace/TestModule/Model/Observer.php',
+        'TestNamespace_TestModule_Model_Observer'
+      );
+    });
+
+    it('creates observer config handle', function () {
+      assert.fileContent(
+        'app/code/local/TestNamespace/TestModule/etc/config.xml',
+        /<events>\s*<controller_action_predispatch>\s*<observers>\s*<testnamespace_testmodule>\s*<class>testnamespace_testmodule\/observer<\/class>\s*<method>sampleObserverMethod<\/method>\s*<\/testnamespace_testmodule>\s*<\/observers>\s*<\/controller_action_predispatch>\s*<\/events>/
       );
     });
 
@@ -186,6 +204,19 @@ describe('generator-magento-module:app', function () {
       assert.noFileContent(
         'app/code/local/TestNamespace/TestModule/etc/config.xml',
         /<helpers>\s*<testnamespace_testmodule>\s*<class>TestNamespace_TestModule_Helper<\/class>\s*<\/testnamespace_testmodule>\s*<\/helpers>/
+      );
+    });
+
+    it('does not create observer component files', function () {
+      assert.noFile([
+        'app/code/local/TestNamespace/TestModule/Model/Observer.php'
+      ]);
+    });
+
+    it('does not create observer config handle', function () {
+      assert.noFileContent(
+        'app/code/local/TestNamespace/TestModule/etc/config.xml',
+        /<events>\s*<controller_action_predispatch>\s*<observers>\s*<testnamespace_testmodule>\s*<class>testnamespace_testmodule\/observer<\/class>\s*<method>sampleObserverMethod<\/method>\s*<\/testnamespace_testmodule>\s*<\/observers>\s*<\/controller_action_predispatch>\s*<\/events>/
       );
     });
 

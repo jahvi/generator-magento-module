@@ -43,5 +43,17 @@
             </<%= moduleId %>>
         </routers>
         <%_ } _%>
+        <%_ if (includeObserver) { _%>
+        <events>
+            <controller_action_predispatch>
+                <observers>
+                    <<%= moduleId %>>
+                        <class><%= moduleId %>/observer</class>
+                        <method>sampleObserverMethod</method>
+                    </<%= moduleId %>>
+                </observers>
+            </controller_action_predispatch>
+        </events>
+        <%_ } _%>
     </frontend>
 </config>
