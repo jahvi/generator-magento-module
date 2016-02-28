@@ -43,14 +43,14 @@ module.exports = yeoman.generators.Base.extend({
       this.namespace = _s.classify(props.namespace);
       this.moduleName = _s.classify(props.moduleName);
 
+      this.modulePath = 'app/code/' + this.codePool + '/' + this.namespace + '/' + this.moduleName;
+
       done();
     }.bind(this));
   },
 
   writing: {
     folders: function () {
-      this.modulePath = 'app/code/' + this.codePool + '/' + this.namespace + '/' + this.moduleName;
-
       mkdirp('app/code/' + this.codePool);
       mkdirp('app/code/' + this.codePool + '/' + this.namespace);
       mkdirp('app/code/' + this.codePool + '/' + this.namespace + '/' + this.moduleName);
@@ -64,6 +64,17 @@ module.exports = yeoman.generators.Base.extend({
         this.destinationPath(this.modulePath + '/etc/config.xml'),
         {
           moduleId: this.namespace.toLowerCase() + '_' + this.moduleName.toLowerCase()
+        }
+      );
+    },
+
+    activate: function () {
+      this.fs.copyTpl(
+        this.templatePath('module.xml'),
+        this.destinationPath('app/etc/modules/' + this.namespace + '_' + this.moduleName + '.xml'),
+        {
+          moduleName: this.namespace + '_' + this.moduleName,
+          codePool: this.codePool
         }
       );
     }

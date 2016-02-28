@@ -32,4 +32,22 @@ describe('generator-magento-module:app', function () {
       'testnamespace_testmodule'
     );
   });
+
+  it('creates module activation file', function () {
+    assert.file([
+      'app/etc/modules/TestNamespace_TestModule.xml'
+    ]);
+  });
+
+  it('sets module filename and codepool in activation file', function () {
+    assert.fileContent(
+      'app/etc/modules/TestNamespace_TestModule.xml',
+      '<TestNamespace_TestModule>'
+    );
+
+    assert.fileContent(
+      'app/etc/modules/TestNamespace_TestModule.xml',
+      '<codePool>local</codePool>'
+    );
+  });
 });
