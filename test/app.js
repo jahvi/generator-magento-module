@@ -61,7 +61,7 @@ describe('generator-magento-module:app', function () {
           namespace: 'Test Namespace',
           moduleName: 'Test Module',
           codePool: 'local',
-          components: ['block', 'controller', 'helper', 'observer', 'setup']
+          components: ['block', 'controller', 'helper', 'model', 'observer', 'setup']
         })
         .on('end', done);
     });
@@ -120,6 +120,18 @@ describe('generator-magento-module:app', function () {
       assert.fileContent(
         'app/code/local/TestNamespace/TestModule/etc/config.xml',
         /<helpers>\s*<testnamespace_testmodule>\s*<class>TestNamespace_TestModule_Helper<\/class>\s*<\/testnamespace_testmodule>\s*<\/helpers>/
+      );
+    });
+
+    it('creates helper component files', function () {
+      assert.file([
+        'app/code/local/TestNamespace/TestModule/Model',
+        'app/code/local/TestNamespace/TestModule/Model/MyModel.php'
+      ]);
+
+      assert.fileContent(
+        'app/code/local/TestNamespace/TestModule/Model/MyModel.php',
+        'TestNamespace_TestModule_Model_MyModel'
       );
     });
 
@@ -212,6 +224,12 @@ describe('generator-magento-module:app', function () {
         'app/code/local/TestNamespace/TestModule/etc/config.xml',
         /<helpers>\s*<testnamespace_testmodule>\s*<class>TestNamespace_TestModule_Helper<\/class>\s*<\/testnamespace_testmodule>\s*<\/helpers>/
       );
+    });
+
+    it('does not create model component files', function () {
+      assert.noFile([
+        'app/code/local/TestNamespace/TestModule/Model'
+      ]);
     });
 
     it('does not create model config handle', function () {

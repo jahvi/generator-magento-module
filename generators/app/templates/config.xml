@@ -20,7 +20,7 @@
             </<%= moduleId %>>
         </helpers>
         <%_ } _%>
-        <%_ if (includeObserver) { _%>
+        <%_ if (includeModel || includeObserver) { _%>
         <models>
             <<%= moduleId %>>
                 <class><%= moduleName %>_Model</class>
