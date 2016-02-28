@@ -5,4 +5,17 @@
             <version>1.0.0</version>
         </<%= moduleId %>>
     </modules>
+    <frontend>
+      <% if (includeController) { %>
+      <routers>
+          <<%= moduleId %>>
+              <use>standard</use>
+              <args>
+                  <module><%= moduleName %></module>
+                  <frontName>myController</frontName>
+              </args>
+          </<%= moduleId %>>
+      </routers>
+      <% } %>
+    </frontend>
 </config>

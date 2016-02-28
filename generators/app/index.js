@@ -42,6 +42,10 @@ module.exports = yeoman.generators.Base.extend({
           {
             name: 'Block',
             value: 'block'
+          },
+          {
+            name: 'Controller',
+            value: 'controller'
           }
         ]
       }
@@ -59,6 +63,7 @@ module.exports = yeoman.generators.Base.extend({
       this.moduleName = _s.classify(answers.moduleName);
 
       this.includeBlock = hasComponent('block');
+      this.includeController = hasComponent('controller');
 
       this.modulePath = 'app/code/' + this.codePool + '/' + this.namespace + '/' + this.moduleName;
 
@@ -83,6 +88,19 @@ module.exports = yeoman.generators.Base.extend({
           }
         );
       }
+
+      if (this.includeController) {
+        mkdirp(this.modulePath + '/controllers');
+
+        this.fs.copyTpl(
+          this.templatePath('controller.php'),
+          this.destinationPath(this.modulePath + '/controllers/IndexController.php'),
+          {
+            namespace: this.namespace,
+            moduleName: this.namespace + '_' + this.moduleName
+          }
+        );
+      }
     },
 
     config: function () {
@@ -90,7 +108,9 @@ module.exports = yeoman.generators.Base.extend({
         this.templatePath('config.xml'),
         this.destinationPath(this.modulePath + '/etc/config.xml'),
         {
-          moduleId: this.namespace.toLowerCase() + '_' + this.moduleName.toLowerCase()
+          moduleId: this.namespace.toLowerCase() + '_' + this.moduleName.toLowerCase(),
+          moduleName: this.namespace + '_' + this.moduleName,
+          includeController: this.includeController
         }
       );
     },
