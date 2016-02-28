@@ -20,6 +20,13 @@
             </<%= moduleId %>>
         </helpers>
         <%_ } _%>
+        <%_ if (includeObserver) { _%>
+        <models>
+            <<%= moduleId %>>
+                <class><%= moduleName %>_Model</class>
+            </<%= moduleId %>>
+        </models>
+        <%_ } _%>
         <%_ if (includeSetup) { _%>
         <resources>
             <<%= moduleFrontName %>_setup>

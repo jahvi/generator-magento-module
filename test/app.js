@@ -123,6 +123,13 @@ describe('generator-magento-module:app', function () {
       );
     });
 
+    it('creates helper model handle', function () {
+      assert.fileContent(
+        'app/code/local/TestNamespace/TestModule/etc/config.xml',
+        /<models>\s*<testnamespace_testmodule>\s*<class>TestNamespace_TestModule_Model<\/class>\s*<\/testnamespace_testmodule>\s*<\/models>/
+      );
+    });
+
     it('creates observer component files', function () {
       assert.file([
         'app/code/local/TestNamespace/TestModule/Model/Observer.php'
@@ -204,6 +211,13 @@ describe('generator-magento-module:app', function () {
       assert.noFileContent(
         'app/code/local/TestNamespace/TestModule/etc/config.xml',
         /<helpers>\s*<testnamespace_testmodule>\s*<class>TestNamespace_TestModule_Helper<\/class>\s*<\/testnamespace_testmodule>\s*<\/helpers>/
+      );
+    });
+
+    it('does not create model config handle', function () {
+      assert.noFileContent(
+        'app/code/local/TestNamespace/TestModule/etc/config.xml',
+        /<models>\s*<testnamespace_testmodule>\s*<class>TestNamespace_TestModule_Model<\/class>\s*<\/testnamespace_testmodule>\s*<\/models>/
       );
     });
 
