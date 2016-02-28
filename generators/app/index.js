@@ -3,7 +3,7 @@ var yeoman = require('yeoman-generator');
 var chalk = require('chalk');
 var yosay = require('yosay');
 var mkdirp = require('mkdirp');
-var _ = require('lodash');
+var _s = require('underscore.string');
 
 module.exports = yeoman.generators.Base.extend({
   prompting: function () {
@@ -40,8 +40,8 @@ module.exports = yeoman.generators.Base.extend({
       this.props = props;
 
       this.codePool = props.codePool;
-      this.namespace = _.upperFirst(_.camelCase(props.namespace));
-      this.moduleName = _.upperFirst(_.camelCase(props.moduleName));
+      this.namespace = _s.classify(props.namespace);
+      this.moduleName = _s.classify(props.moduleName);
 
       done();
     }.bind(this));
@@ -63,7 +63,7 @@ module.exports = yeoman.generators.Base.extend({
         this.templatePath('config.xml'),
         this.destinationPath(this.modulePath + '/etc/config.xml'),
         {
-          moduleId: _.toLower(this.namespace + '_' + this.moduleName)
+          moduleId: this.namespace.toLowerCase() + '_' + this.moduleName.toLowerCase()
         }
       );
     }
