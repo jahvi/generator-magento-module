@@ -50,6 +50,10 @@ module.exports = yeoman.generators.Base.extend({
           {
             name: 'Helper',
             value: 'helper'
+          },
+          {
+            name: 'Setup Resource',
+            value: 'setup'
           }
         ]
       }
@@ -69,6 +73,7 @@ module.exports = yeoman.generators.Base.extend({
       this.includeBlock = hasComponent('block');
       this.includeController = hasComponent('controller');
       this.includeHelper = hasComponent('helper');
+      this.includeSetup = hasComponent('setup');
 
       this.moduleClassName = this.namespace + '_' + this.moduleName;
       this.modulePath = 'app/code/' + this.codePool + '/' + this.namespace + '/' + this.moduleName;
@@ -120,6 +125,15 @@ module.exports = yeoman.generators.Base.extend({
           }
         );
       }
+
+      if (this.includeSetup) {
+        mkdirp(this.modulePath + '/sql/' + this.moduleName.toLowerCase() + '_setup');
+
+        this.fs.copy(
+          this.templatePath('setup.php'),
+          this.destinationPath(this.modulePath + '/sql/' + this.moduleName.toLowerCase() + '_setup/install-1.0.0.php')
+        );
+      }
     },
 
     config: function () {
@@ -132,7 +146,8 @@ module.exports = yeoman.generators.Base.extend({
           moduleFrontName: this.moduleName.toLowerCase(),
           includeBlock: this.includeBlock,
           includeController: this.includeController,
-          includeHelper: this.includeHelper
+          includeHelper: this.includeHelper,
+          includeSetup: this.includeSetup
         }
       );
     },

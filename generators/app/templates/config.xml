@@ -20,6 +20,16 @@
             </<%= moduleId %>>
         </helpers>
         <%_ } _%>
+        <%_ if (includeSetup) { _%>
+        <resources>
+            <<%= moduleFrontName %>_setup>
+                <setup>
+                    <module><%= moduleName %></module>
+                    <class>Mage_Core_Model_Resource_Setup</class>
+                </setup>
+            </<%= moduleFrontName %>_setup>
+        </resources>
+        <%_ } _%>
     </global>
     <frontend>
         <%_ if (includeController) { _%>

@@ -61,7 +61,7 @@ describe('generator-magento-module:app', function () {
           namespace: 'Test Namespace',
           moduleName: 'Test Module',
           codePool: 'local',
-          components: ['block', 'controller', 'helper']
+          components: ['block', 'controller', 'helper', 'setup']
         })
         .on('end', done);
     });
@@ -122,6 +122,20 @@ describe('generator-magento-module:app', function () {
         /<helpers>\s*<testnamespace_testmodule>\s*<class>TestNamespace_TestModule_Helper<\/class>\s*<\/testnamespace_testmodule>\s*<\/helpers>/
       );
     });
+
+    it('creates setup resource component files', function () {
+      assert.file([
+        'app/code/local/TestNamespace/TestModule/sql',
+        'app/code/local/TestNamespace/TestModule/sql/testmodule_setup/install-1.0.0.php'
+      ]);
+    });
+
+    it('creates setup resource config handle', function () {
+      assert.fileContent(
+        'app/code/local/TestNamespace/TestModule/etc/config.xml',
+        /<resources>\s*<testmodule_setup>\s*<setup>\s*<module>TestNamespace_TestModule<\/module>\s*<class>Mage_Core_Model_Resource_Setup<\/class>\s*<\/setup>\s*<\/testmodule_setup>\s*<\/resources>/
+      );
+    });
   });
 
   describe('generate module without components', function () {
@@ -172,6 +186,19 @@ describe('generator-magento-module:app', function () {
       assert.noFileContent(
         'app/code/local/TestNamespace/TestModule/etc/config.xml',
         /<helpers>\s*<testnamespace_testmodule>\s*<class>TestNamespace_TestModule_Helper<\/class>\s*<\/testnamespace_testmodule>\s*<\/helpers>/
+      );
+    });
+
+    it('does not create setup resource component files', function () {
+      assert.noFile([
+        'app/code/local/TestNamespace/TestModule/sql'
+      ]);
+    });
+
+    it('does not create setup resource config handle', function () {
+      assert.noFileContent(
+        'app/code/local/TestNamespace/TestModule/etc/config.xml',
+        /<resources>\s*<testmodule_setup>\s*<setup>\s*<module>TestNamespace_TestModule<\/module>\s*<class>Mage_Core_Model_Resource_Setup<\/class>\s*<\/setup>\s*<\/testmodule_setup>\s*<\/resources>/
       );
     });
   });
