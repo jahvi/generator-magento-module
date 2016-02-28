@@ -11,7 +11,7 @@ module.exports = yeoman.generators.Base.extend({
 
     // Have Yeoman greet the user
     this.log(yosay(
-      'Welcome to the sweet ' + chalk.red('Magento 1 module') + ' generator!'
+      'Welcome to the sweet ' + chalk.red('Magento module') + ' generator!'
     ));
 
     var prompts = [
