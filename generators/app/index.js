@@ -51,11 +51,8 @@ module.exports = yeoman.generators.Base.extend({
 
   writing: {
     folders: function () {
-      mkdirp('app/code/' + this.codePool);
-      mkdirp('app/code/' + this.codePool + '/' + this.namespace);
-      mkdirp('app/code/' + this.codePool + '/' + this.namespace + '/' + this.moduleName);
-
-      mkdirp('app/code/' + this.codePool + '/' + this.namespace + '/' + this.moduleName + '/etc');
+      mkdirp(this.modulePath);
+      mkdirp(this.modulePath + '/etc');
     },
 
     config: function () {
