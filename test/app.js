@@ -7,8 +7,8 @@ describe('generator-magento-module:app', function () {
   before(function (done) {
     helpers.run(path.join(__dirname, '../generators/app'))
       .withPrompts({
-        namespace: 'Namespace',
-        moduleName: 'Module',
+        namespace: 'Test Namespace',
+        moduleName: 'Test Module',
         codePool: 'local'
       })
       .on('end', done);
@@ -16,7 +16,7 @@ describe('generator-magento-module:app', function () {
 
   it('creates initial folder structure', function () {
     assert.file([
-      'app/code/local/Namespace/Module'
+      'app/code/local/TestNamespace/TestModule'
     ]);
   });
 });

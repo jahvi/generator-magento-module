@@ -3,6 +3,7 @@ var yeoman = require('yeoman-generator');
 var chalk = require('chalk');
 var yosay = require('yosay');
 var mkdirp = require('mkdirp');
+var _ = require('lodash');
 
 module.exports = yeoman.generators.Base.extend({
   prompting: function () {
@@ -38,15 +39,19 @@ module.exports = yeoman.generators.Base.extend({
     this.prompt(prompts, function (props) {
       this.props = props;
 
+      this.codePool = props.codePool;
+      this.namespace = _.upperFirst(_.camelCase(props.namespace));
+      this.moduleName = _.upperFirst(_.camelCase(props.moduleName));
+
       done();
     }.bind(this));
   },
 
   writing: {
     folders: function () {
-      mkdirp('app/code/' + this.props.codePool);
-      mkdirp('app/code/' + this.props.codePool + '/' + this.props.namespace);
-      mkdirp('app/code/' + this.props.codePool + '/' + this.props.namespace + '/' + this.props.moduleName);
+      mkdirp('app/code/' + this.codePool);
+      mkdirp('app/code/' + this.codePool + '/' + this.namespace);
+      mkdirp('app/code/' + this.codePool + '/' + this.namespace + '/' + this.moduleName);
     }
   }
 });
