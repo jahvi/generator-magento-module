@@ -71,6 +71,11 @@ describe('generator-magento-module:app', function () {
         'app/code/local/TestNamespace/TestModule/Block',
         'app/code/local/TestNamespace/TestModule/Block/MyBlock.php'
       ]);
+
+      assert.fileContent(
+        'app/code/local/TestNamespace/TestModule/Block/MyBlock.php',
+        'TestNamespace_TestModule_Block_MyBlock'
+      );
     });
 
     it('creates controller component files', function () {
@@ -78,6 +83,11 @@ describe('generator-magento-module:app', function () {
         'app/code/local/TestNamespace/TestModule/controllers',
         'app/code/local/TestNamespace/TestModule/controllers/IndexController.php'
       ]);
+
+      assert.fileContent(
+        'app/code/local/TestNamespace/TestModule/controllers/IndexController.php',
+        'TestNamespace_TestModule_IndexController'
+      );
     });
 
     it('creates controller config handle', function () {
