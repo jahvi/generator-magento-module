@@ -65,6 +65,7 @@ module.exports = yeoman.generators.Base.extend({
       this.includeBlock = hasComponent('block');
       this.includeController = hasComponent('controller');
 
+      this.moduleClassName = this.namespace + '_' + this.moduleName;
       this.modulePath = 'app/code/' + this.codePool + '/' + this.namespace + '/' + this.moduleName;
 
       done();
@@ -84,7 +85,7 @@ module.exports = yeoman.generators.Base.extend({
           this.destinationPath(this.modulePath + '/Block/MyBlock.php'),
           {
             namespace: this.namespace,
-            moduleName: this.namespace + '_' + this.moduleName
+            moduleName: this.moduleClassName
           }
         );
       }
@@ -97,7 +98,7 @@ module.exports = yeoman.generators.Base.extend({
           this.destinationPath(this.modulePath + '/controllers/IndexController.php'),
           {
             namespace: this.namespace,
-            moduleName: this.namespace + '_' + this.moduleName
+            moduleName: this.moduleClassName
           }
         );
       }
@@ -109,7 +110,7 @@ module.exports = yeoman.generators.Base.extend({
         this.destinationPath(this.modulePath + '/etc/config.xml'),
         {
           moduleId: this.namespace.toLowerCase() + '_' + this.moduleName.toLowerCase(),
-          moduleName: this.namespace + '_' + this.moduleName,
+          moduleName: this.moduleClassName,
           includeBlock: this.includeBlock,
           includeController: this.includeController
         }
@@ -119,9 +120,9 @@ module.exports = yeoman.generators.Base.extend({
     activate: function () {
       this.fs.copyTpl(
         this.templatePath('module.xml'),
-        this.destinationPath('app/etc/modules/' + this.namespace + '_' + this.moduleName + '.xml'),
+        this.destinationPath('app/etc/modules/' + this.moduleClassName + '.xml'),
         {
-          moduleName: this.namespace + '_' + this.moduleName,
+          moduleName: this.moduleClassName,
           codePool: this.codePool
         }
       );
