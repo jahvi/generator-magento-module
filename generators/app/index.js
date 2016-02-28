@@ -37,7 +37,7 @@ module.exports = yeoman.generators.Base.extend({
       {
         type: 'checkbox',
         name: 'components',
-        message: 'What components do you need?',
+        message: 'What frontend components do you need?',
         choices: [
           {
             name: 'Block',
