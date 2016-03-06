@@ -9,10 +9,18 @@ module.exports = yeoman.generators.Base.extend({
   prompting: function () {
     var done = this.async();
 
-    // Have Yeoman greet the user
-    this.log(yosay(
-      'Welcome to the sweet ' + chalk.red('Magento module') + ' generator!'
-    ));
+    var ml = [
+      '',
+      chalk.red('     .\'\'-`'),
+      chalk.red('    ...\'\'\'.'),
+      chalk.red('   .`  `\'\'\'-     `......``'),
+      chalk.red('  .`    .\'\'\'\'..\'\'\'\'\'\'\'.`..\'.`'),
+      chalk.red(' ..      `\'\'\'\'\'\'\'\'\'.`       `..`'),
+      chalk.red('`.         `.....`              ``'),
+      ''
+    ].join('\n');
+
+    this.log(ml);
 
     var prompts = [
       {
