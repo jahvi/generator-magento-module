@@ -1,6 +1,6 @@
 {
   "name": "generator-magento-module",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Yeoman generator for Magento modules",
   "author": {
     "name": "Javier Villanueva",
