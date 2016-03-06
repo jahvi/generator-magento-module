@@ -93,6 +93,8 @@ module.exports = yeoman.generators.Base.extend({
       this.includeObserver = hasComponent('observer');
       this.includeSetup = hasComponent('setup');
 
+      this.hasFrontendComponents = this.includeController || this.includeObserver;
+
       this.moduleClassName = this.namespace + '_' + this.moduleName;
       this.modulePath = 'app/code/' + this.codePool + '/' + this.namespace + '/' + this.moduleName;
 
@@ -188,6 +190,7 @@ module.exports = yeoman.generators.Base.extend({
           moduleId: this.namespace.toLowerCase() + '_' + this.moduleName.toLowerCase(),
           moduleName: this.moduleClassName,
           moduleFrontName: this.moduleName.toLowerCase(),
+          hasFrontendComponents: this.hasFrontendComponents,
           includeBlock: this.includeBlock,
           includeController: this.includeController,
           includeHelper: this.includeHelper,

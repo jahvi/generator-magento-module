@@ -38,6 +38,7 @@
         </resources>
         <%_ } _%>
     </global>
+    <%_ if (hasFrontendComponents) { _%>
     <frontend>
         <%_ if (includeController) { _%>
         <routers>
@@ -63,4 +64,5 @@
         </events>
         <%_ } _%>
     </frontend>
+    <%_ } _%>
 </config>

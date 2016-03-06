@@ -54,6 +54,13 @@ describe('generator-magento-module:app', function () {
     });
 
     describe('generate module without components', function () {
+      it('does not create frontend config handle', function () {
+        assert.noFileContent(
+          'app/code/local/TestNamespace/TestModule/etc/config.xml',
+          /<frontend>[\s\S]*?<\/frontend>/
+        );
+      });
+
       it('does not create block component files', function () {
         assert.noFile([
           'app/code/local/TestNamespace/TestModule/Block'
@@ -143,6 +150,13 @@ describe('generator-magento-module:app', function () {
             components: ['block', 'controller', 'helper', 'model', 'observer', 'setup']
           })
           .on('end', done);
+      });
+
+      it('creates frontend config handle', function () {
+        assert.fileContent(
+          'app/code/local/TestNamespace/TestModule/etc/config.xml',
+          /<frontend>[\s\S]*?<\/frontend>/
+        );
       });
 
       it('creates block component files', function () {
