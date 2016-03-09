@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <config>
     <modules>
-        <<%= moduleId %>>
+        <<%= moduleName %>>
             <version>1.0.0</version>
-        </<%= moduleId %>>
+        </<%= moduleName %>>
     </modules>
     <global>
         <%_ if (includeBlock) { _%>

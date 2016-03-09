@@ -30,7 +30,7 @@ describe('generate folder structure', function () {
   it('creates module id from namespace and module name', function () {
     assert.fileContent(
       'app/code/local/TestNamespace/TestModule/etc/config.xml',
-      'testnamespace_testmodule'
+      /<TestNamespace_TestModule>[\s\S]*?<\/TestNamespace_TestModule>/
     );
   });
 
@@ -43,7 +43,7 @@ describe('generate folder structure', function () {
   it('sets module filename and codepool in activation file', function () {
     assert.fileContent(
       'app/etc/modules/TestNamespace_TestModule.xml',
-      '<TestNamespace_TestModule>'
+      /<TestNamespace_TestModule>[\s\S]*?<\/TestNamespace_TestModule>/
     );
 
     assert.fileContent(
