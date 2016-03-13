@@ -26,7 +26,8 @@ module.exports = yeoman.generators.Base.extend({
         type: 'input',
         name: 'namespace',
         message: 'What is your namespace?',
-        default: 'Medialounge'
+        default: 'Medialounge',
+        store: true
       },
       {
         type: 'input',
