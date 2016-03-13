@@ -44,7 +44,7 @@ module.exports = yeoman.generators.Base.extend({
       {
         type: 'checkbox',
         name: 'components',
-        message: 'What frontend components do you need?',
+        message: 'What components do you need?',
         choices: [
           {
             name: 'Block',
@@ -69,6 +69,10 @@ module.exports = yeoman.generators.Base.extend({
           {
             name: 'Setup Resource',
             value: 'setup'
+          },
+          {
+            name: 'Widget',
+            value: 'widget'
           }
         ]
       }
@@ -91,6 +95,7 @@ module.exports = yeoman.generators.Base.extend({
       this.includeModel = hasComponent('model');
       this.includeObserver = hasComponent('observer');
       this.includeSetup = hasComponent('setup');
+      this.includeWidget = hasComponent('widget');
 
       this.hasFrontendComponents = this.includeController || this.includeObserver;
 
@@ -132,7 +137,7 @@ module.exports = yeoman.generators.Base.extend({
         );
       }
 
-      if (this.includeHelper) {
+      if (this.includeHelper || this.includeWidget) {
         mkdirp(this.modulePath + '/Helper');
 
         this.fs.copyTpl(
@@ -179,6 +184,36 @@ module.exports = yeoman.generators.Base.extend({
           this.destinationPath(this.modulePath + '/sql/' + this.moduleName.toLowerCase() + '_setup/install-1.0.0.php')
         );
       }
+
+      if (this.includeWidget) {
+        this.fs.copyTpl(
+          this.templatePath('widget.xml'),
+          this.destinationPath(this.modulePath + '/etc/widget.xml'),
+          {
+            moduleId: this.namespace.toLowerCase() + '_' + this.moduleName.toLowerCase(),
+            namespace: this.namespace.toLowerCase(),
+            moduleFrontName: this.moduleName.toLowerCase()
+          }
+        );
+
+        mkdirp(this.modulePath + '/Block/Widget');
+
+        this.fs.copyTpl(
+          this.templatePath('widget_block.php'),
+          this.destinationPath(this.modulePath + '/Block/Widget/MyWidget.php'),
+          {
+            namespace: this.namespace,
+            moduleName: this.moduleClassName
+          }
+        );
+
+        mkdirp('app/design/frontend/base/default/template/' + this.namespace.toLowerCase() + '/' + this.moduleName.toLowerCase() + '/widget');
+
+        this.fs.copy(
+          this.templatePath('default.phtml'),
+          this.destinationPath('app/design/frontend/base/default/template/' + this.namespace.toLowerCase() + '/' + this.moduleName.toLowerCase() + '/widget/default.phtml')
+        );
+      }
     },
 
     config: function () {
@@ -195,7 +230,8 @@ module.exports = yeoman.generators.Base.extend({
           includeHelper: this.includeHelper,
           includeModel: this.includeModel,
           includeObserver: this.includeObserver,
-          includeSetup: this.includeSetup
+          includeSetup: this.includeSetup,
+          includeWidget: this.includeWidget
         }
       );
     },

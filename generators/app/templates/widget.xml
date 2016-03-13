@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<widgets>
+    <<%= moduleId %> type="<%= moduleId %>/widget_mywidget" translate="name description" module="<%= moduleId %>">
+        <name>My Widget</name>
+        <description>My widget description</description>
+        <parameters>
+            <sample_field translate="label">
+                <label>Sample field</label>
+                <type>text</type>
+                <visible>1</visible>
+                <required>1</required>
+            </sample_field>
+            <template translate="label">
+                <label>Template</label>
+                <visible>1</visible>
+                <type>select</type>
+                <value><%= namespace %>/<%= moduleFrontName %>/widget/default.phtml</value>
+                <values>
+                    <default translate="label">
+                        <value><%= namespace %>/<%= moduleFrontName %>/widget/default.phtml</value>
+                        <label>My Widget Default Template</label>
+                    </default>
+                </values>
+            </template>
+        </parameters>
+    </<%= moduleId %>>
+</widgets>

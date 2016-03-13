@@ -99,4 +99,18 @@ describe('generate module without components', function () {
       /<resources>\s*<testmodule_setup>\s*<setup>\s*<module>TestNamespace_TestModule<\/module>\s*<class>Mage_Core_Model_Resource_Setup<\/class>\s*<\/setup>\s*<\/testmodule_setup>\s*<\/resources>/
     );
   });
+
+  it('does not create widget component files', function () {
+    assert.noFile([
+      'app/code/local/TestNamespace/TestModule/etc/widget.xml'
+    ]);
+
+    assert.noFile([
+      'app/code/local/TestNamespace/TestModule/Block/Widget/MyWidget.php'
+    ]);
+
+    assert.noFile([
+      'app/design/frontend/base/default/template/testnamespace/testmodule/widget/default.phtml'
+    ]);
+  });
 });

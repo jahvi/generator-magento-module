@@ -10,7 +10,7 @@ describe('generate module with all components', function () {
         namespace: 'Test Namespace',
         moduleName: 'Test Module',
         codePool: 'local',
-        components: ['block', 'controller', 'helper', 'model', 'observer', 'setup']
+        components: ['block', 'controller', 'helper', 'model', 'observer', 'setup', 'widget']
       })
       .on('end', done);
   });
@@ -127,6 +127,35 @@ describe('generate module with all components', function () {
     assert.fileContent(
       'app/code/local/TestNamespace/TestModule/etc/config.xml',
       /<resources>\s*<testmodule_setup>\s*<setup>\s*<module>TestNamespace_TestModule<\/module>\s*<class>Mage_Core_Model_Resource_Setup<\/class>\s*<\/setup>\s*<\/testmodule_setup>\s*<\/resources>/
+    );
+  });
+
+  it('creates widget component files', function () {
+    assert.file(
+      'app/code/local/TestNamespace/TestModule/etc/widget.xml'
+    );
+
+    assert.fileContent(
+      'app/code/local/TestNamespace/TestModule/etc/widget.xml',
+      /<testnamespace_testmodule type="testnamespace_testmodule\/widget_mywidget" translate="name description" module="testnamespace_testmodule">[\s\S]*?<\/testnamespace_testmodule>/
+    );
+
+    assert.fileContent(
+      'app/code/local/TestNamespace/TestModule/etc/widget.xml',
+      /<value>testnamespace\/testmodule\/widget\/default\.phtml<\/value>/
+    );
+
+    assert.file(
+      'app/design/frontend/base/default/template/testnamespace/testmodule/widget/default.phtml'
+    );
+
+    assert.file(
+      'app/code/local/TestNamespace/TestModule/Block/Widget/MyWidget.php'
+    );
+
+    assert.fileContent(
+      'app/code/local/TestNamespace/TestModule/Block/Widget/MyWidget.php',
+      'TestNamespace_TestModule_Block_Widget_MyWidget'
     );
   });
 });

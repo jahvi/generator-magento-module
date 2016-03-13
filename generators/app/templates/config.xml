@@ -6,14 +6,14 @@
         </<%= moduleName %>>
     </modules>
     <global>
-        <%_ if (includeBlock) { _%>
+        <%_ if (includeBlock || includeWidget) { _%>
         <blocks>
             <<%= moduleId %>>
                 <class><%= moduleName %>_Block</class>
             </<%= moduleId %>>
         </blocks>
         <%_ } _%>
-        <%_ if (includeHelper) { _%>
+        <%_ if (includeHelper || includeWidget) { _%>
         <helpers>
             <<%= moduleId %>>
                 <class><%= moduleName %>_Helper</class>
