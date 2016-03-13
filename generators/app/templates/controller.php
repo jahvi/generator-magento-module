@@ -4,6 +4,7 @@
  *
  * @category   <%= namespace %>
  * @package    <%= moduleName %>
+ * @author     <%= author.name %> <<%= author.email %>>
  */
 class <%= moduleName %>_IndexController extends Mage_Core_Controller_Front_Action
 {

@@ -78,6 +78,11 @@ module.exports = yeoman.generators.Base.extend({
       }
     ];
 
+    this.author = {
+      name: this.user.git.name(),
+      email: this.user.git.email()
+    };
+
     this.prompt(prompts, function (answers) {
       var components = answers.components;
 
@@ -119,7 +124,8 @@ module.exports = yeoman.generators.Base.extend({
           this.destinationPath(this.modulePath + '/Block/MyBlock.php'),
           {
             namespace: this.namespace,
-            moduleName: this.moduleClassName
+            moduleName: this.moduleClassName,
+            author: this.author
           }
         );
       }
@@ -132,7 +138,8 @@ module.exports = yeoman.generators.Base.extend({
           this.destinationPath(this.modulePath + '/controllers/IndexController.php'),
           {
             namespace: this.namespace,
-            moduleName: this.moduleClassName
+            moduleName: this.moduleClassName,
+            author: this.author
           }
         );
       }
@@ -145,7 +152,8 @@ module.exports = yeoman.generators.Base.extend({
           this.destinationPath(this.modulePath + '/Helper/Data.php'),
           {
             namespace: this.namespace,
-            moduleName: this.moduleClassName
+            moduleName: this.moduleClassName,
+            author: this.author
           }
         );
       }
@@ -158,7 +166,8 @@ module.exports = yeoman.generators.Base.extend({
           this.destinationPath(this.modulePath + '/Model/MyModel.php'),
           {
             namespace: this.namespace,
-            moduleName: this.moduleClassName
+            moduleName: this.moduleClassName,
+            author: this.author
           }
         );
       }
@@ -171,7 +180,8 @@ module.exports = yeoman.generators.Base.extend({
           this.destinationPath(this.modulePath + '/Model/Observer.php'),
           {
             namespace: this.namespace,
-            moduleName: this.moduleClassName
+            moduleName: this.moduleClassName,
+            author: this.author
           }
         );
       }
@@ -203,15 +213,19 @@ module.exports = yeoman.generators.Base.extend({
           this.destinationPath(this.modulePath + '/Block/Widget/MyWidget.php'),
           {
             namespace: this.namespace,
-            moduleName: this.moduleClassName
+            moduleName: this.moduleClassName,
+            author: this.author
           }
         );
 
         mkdirp('app/design/frontend/base/default/template/' + this.namespace.toLowerCase() + '/' + this.moduleName.toLowerCase() + '/widget');
 
-        this.fs.copy(
+        this.fs.copyTpl(
           this.templatePath('default.phtml'),
-          this.destinationPath('app/design/frontend/base/default/template/' + this.namespace.toLowerCase() + '/' + this.moduleName.toLowerCase() + '/widget/default.phtml')
+          this.destinationPath('app/design/frontend/base/default/template/' + this.namespace.toLowerCase() + '/' + this.moduleName.toLowerCase() + '/widget/default.phtml'),
+          {
+            author: this.author
+          }
         );
       }
     },
